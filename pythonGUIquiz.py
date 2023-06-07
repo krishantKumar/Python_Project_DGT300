@@ -6,11 +6,10 @@ from tkinter import *
 from tkinter import StringVar
 
 # Class for the home page
-"""Class Home creates the Home page with Begin Quiz button and Help button"""
 class Home:
     def __init__(self, parent):
         # setting background colour
-        background_color = "#B3E0EE"
+        background_color = "#9FE7F5"
 
         # setting up Frame
         self.home_frame= Frame(parent, bg = background_color)
@@ -20,34 +19,49 @@ class Home:
 
         # GUI elements
         self.heading_label = Label(self.home_frame, text="MATHS QUIZ",
-                                   justify=CENTER, font="Arial 48 bold",
-                                   bg=background_color)
+                                   justify=CENTER, font=("Courier New", 48,
+                                    "bold"),
+                                   fg="#053F5C", bg=background_color)
         
         # using grid method to move object into different rows and columns 
         self.heading_label.grid(row=0, columnspan=2, padx=50, pady=50)
 
         # creating the begin quiz button
         self.begin_btn = Button(self.home_frame, text="BEGIN QUIZ",
-                                font="Arial 24 bold", bg="#0196C1",
-                                fg="white", command=self.open_questions)
+                                font=("Arial", 24, "bold"), bg="#F7AD19",
+                                fg="#053F5C", command=self.open_questions)
         
         # using grid method to move button to correct location
         self.begin_btn.grid(row=1, column=0, padx=10, pady=10)
 
         # creating the help button
         self.help_btn = Button(self.home_frame, text="HELP",
-                               font="Arial 24 bold", bg="#0196C1",
-                               fg="white", command=self.var_help)
+                               font=("Arial", 24, "bold"), bg="#F7AD19",
+                               fg="#053F5C", command=self.var_help)
         
         # using grid method to position help button correctly
         self.help_btn.grid(row=1, column=1, padx=10, pady=10)
     
     def var_help(self):
-        # Opening the help box
+    # Opening the help box
         get_help = Help()
-        get_help.help_text.configure(text="help goes here",
+        get_help.help_text.configure(text="Welcome to the Algebra Maths Quiz!\n"
+                                     'To begin the quiz, press "Begin Quiz".\n'
+                                     "This quiz tests you knowledge on basic\n"
+                                     "Algebra skills such as solving,\n"
+                                     "simplifying and expanding. NO\n"
+                                     "CALCULATORS ALLOWED. These questions\n"
+                                     "can be done in a book or on a paper.\n\n"
+                                     "When beginning the quiz, you have three\n"
+                                     "options available to choose from.\n"
+                                     "Press one option and then click on the\n"
+                                     '"Next Question" button. Your score\n'
+                                     "will only be displayed at the end of\n"
+                                     "the quiz.",                                    
                                      justify=CENTER,
-                                     font="Arial 16 bold")
+                                     font=("Courier New", 10, "bold"),
+                                     fg="#053F5C")
+
         
     def open_questions(self):
         # Opening the questions
@@ -56,7 +70,7 @@ class Home:
 # Class for the help page
 class Help:
     def __init__(self):
-        background_color = "#B3E0EE"
+        background_color = "#9FE7F5"
 
         # setting up help window size
         self.help_box = Toplevel()
@@ -71,24 +85,25 @@ class Help:
 
         # creating the heading for the help page using Label
         help_heading = Label(self.help_frame, text="Help & Instructions", 
-                             justify=CENTER, font="Arial 36 bold",
-                             bg=background_color)
+                             justify=CENTER, font=("Courier New", 36, "bold"), 
+                             fg="#053F5C", bg=background_color)
         
         # using grid method to position heading correctly
-        help_heading.grid(row=0, columnspan=2, padx=50, pady=50)
+        help_heading.grid(row=0, columnspan=2, padx=5, pady=5)
 
         # creating label for help text
         self.help_text = Label(self.help_frame, text="", justify=CENTER,
-                               padx=10, pady=10, bg=background_color)
-        self.help_text.grid(row=1, columnspan=2, padx=10, pady=10)
+                               bg=background_color)
+        self.help_text.grid(row=1, columnspan=2)
 
         # creating a dismiss button
         dismiss_btn = Button(self.help_frame, text="DISMISS", 
-                             font="Arial 24 bold", padx=2, pady=2, bg="red", 
-                             fg="white", command=self.close_help)
+                             font=("Arial", 24, "bold"), 
+                             bg="#F27F0C", fg="#053F5C",
+                             command=self.close_help)
         
         # using grid method to position dismiss button correctly
-        dismiss_btn.grid(row=2, columnspan=2, pady=10)
+        dismiss_btn.grid(row=2, columnspan=2, pady=5, padx=5)
 
     def close_help(self):
         # Close the help box
@@ -129,7 +144,7 @@ class Questions:
         ]
 
         # setting up question box
-        background_color = "#B3E0EE"
+        background_color = "#9FE7F5"
 
         self.question_box = Toplevel()
         self.question_box.geometry("640x360")
@@ -144,15 +159,17 @@ class Questions:
         # creating heading that says "Question:"
         question_heading = tk.Label(self.question_frame, text="Question:",
                                     justify=CENTER, 
-                                    font="Arial 18 bold", bg="#B3E0EE")
+                                    font=("Courier New", 18, "bold"),
+                                    bg="#9FE7F5", fg="#053F5C")
         
         # using grid method to position question heading
-        question_heading.grid(row=0, column=0)
+        question_heading.place(relx=0.5, rely=0.05, anchor=CENTER)
 
         # creating white background for question
         question_label = tk.Label(self.question_frame, height=3, width=30,
-                                  bg="white", font="Arial 24 bold",
-                                  wraplength=500)
+                                  bg="white",
+                                  font=("Times New Roman", 24, "bold"),
+                                  fg="#053F5C", wraplength=500)
 
         # using StringVar to manage options
         v1 = StringVar(self.question_frame)
@@ -160,32 +177,38 @@ class Questions:
         v3 = StringVar(self.question_frame)
         
         # creating radiobuttons for options
-        option1 = tk.Radiobutton(self.question_frame, bg="#B3E0EE", 
-                                 variable=v1, font="Arial 18 bold",
+        option1 = tk.Radiobutton(self.question_frame, bg="#9FE7F5",
+                                 fg="#053F5C",
+                                 variable=v1,
+                                 font=("Times New Roman", 24, "bold"),
                                  command=lambda: checkAnswer(option1))
-        option2 = tk.Radiobutton(self.question_frame, bg="#B3E0EE", 
-                                 variable=v2, font="Arial 18 bold",
+        option2 = tk.Radiobutton(self.question_frame, bg="#9FE7F5",
+                                 fg="#053F5C", 
+                                 variable=v2,
+                                 font=("Times New Roman", 24, "bold"),
                                  command=lambda: checkAnswer(option2))
-        option3 = tk.Radiobutton(self.question_frame, bg="#B3E0EE", 
-                                 variable=v3, font="Arial 18 bold",
+        option3 = tk.Radiobutton(self.question_frame, bg="#9FE7F5",
+                                 fg="#053F5C", 
+                                 variable=v3,
+                                 font=("Times New Roman", 24, "bold"),
                                  command=lambda: checkAnswer(option3))
         # creating the "next question" button
         button_next = tk.Button(self.question_frame, text="NEXT QUESTION",
                                 justify=CENTER,
-                                bg="#0196C1", fg="white", 
-                                font="Arial 24 bold",
+                                font=("Arial", 24, "bold"), bg="#F7AD19",
+                                fg="#053F5C",
                                 command=lambda: display_Next_Question())
 
 
         self.question_frame.pack(fill="both", expand="true")
-        question_label.grid(row=1, column=0)
+        question_label.place(relx=0.5, rely=0.25, anchor=CENTER)
 
         # grid method to position options 
-        option1.grid(sticky=W, row=2, column=0)
-        option2.grid(sticky=W, row=3, column=0)
-        option3.grid(sticky=W, row=4, column=0)
+        option1.place(anchor=W, relx=0.1, rely=0.5)
+        option2.place(anchor=W, relx=0.1, rely=0.6)
+        option3.place(anchor=W, relx=0.1, rely=0.7)
 
-        button_next.grid(row=6, column=0)
+        button_next.place(relx=0.5, rely=0.9, anchor=CENTER)
 
         index = 0
         correct = 0
@@ -246,7 +269,7 @@ class Questions:
 # Creating main window
 root = tk.Tk()
 # Main routine
-background_color = "#B3E0EE"
+background_color = "#9FE7F5"
 
 root.geometry("640x360")
 root.configure(bg=background_color)
