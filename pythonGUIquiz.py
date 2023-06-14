@@ -1,11 +1,41 @@
 # Python GUI quiz project, 20/05/23
 # V1
 
+##########   IMPORTS   ##########
 import tkinter as tk
 from tkinter import *
 from tkinter import StringVar
 
-# Class for the home page
+##########   CLASS CODE   ##########
+# class Name:
+#     def __init__(self, parent):
+#         # setting background colour
+#         background_color = "#9FE7F5"
+
+#         #TODO: READ AND WRITE FILES TO STORE NAME AND SCORE
+
+#         # setting up Frame
+#         self.name_frame= Frame(parent, bg = background_color)
+
+#         # using place method to keep content in the frame centred
+#         self.name_frame.place(relx=0.5, rely=0.5, anchor=CENTER)
+#         # GUI elements
+#         self.heading_name_label = Label(self.name_frame, 
+#                                         text="What is your name?",
+#                                         justify=CENTER, font=("Arial", 24,
+#                                                               "bold"),
+#                                    fg="#053F5C", bg=background_color)
+#         self.heading_name_label.grid(row=0, columnspan=2, padx=10, pady=10)
+
+#         self.name_entry = Entry(self.name_frame)
+#         self.name_entry.grid(row=1, columnspan=2)
+
+#         self.submit_btn = Button(self.name_frame, text="SUBMIT",
+#                                  justify=CENTER, font=("Arial", 14, "bold"),
+#                                  bg="#F7AD19", fg="#053F5C")
+#         self.submit_btn.grid(row=2, columnspan=2, padx=10, pady=10)
+        
+
 class Home:
     def __init__(self, parent):
         # setting background colour
@@ -18,8 +48,9 @@ class Home:
         self.home_frame.place(relx=0.5, rely=0.5, anchor=CENTER)
 
         # GUI elements
-        self.heading_label = Label(self.home_frame, text="MATHS QUIZ",
-                                   justify=CENTER, font=("Courier New", 48,
+        self.heading_label = Label(self.home_frame, text="MATHS QUIZ\n"
+                                   "NCEA Level 1 & 2",
+                                   justify=CENTER, font=("Courier New", 32,
                                     "bold"),
                                    fg="#053F5C", bg=background_color)
         
@@ -43,7 +74,7 @@ class Home:
         self.help_btn.grid(row=1, column=1, padx=10, pady=10)
     
     def var_help(self):
-    # Opening the help box
+        # Opening the help box
         get_help = Help()
         get_help.help_text.configure(text="Welcome to the Algebra Maths Quiz!\n"
                                      'To begin the quiz, press "Begin Quiz".\n'
@@ -59,13 +90,13 @@ class Home:
                                      "will only be displayed at the end of\n"
                                      "the quiz.",                                    
                                      justify=CENTER,
-                                     font=("Courier New", 10, "bold"),
+                                     font=("Arial", 10, "bold"),
                                      fg="#053F5C")
 
         
     def open_questions(self):
         # Opening the questions
-        questions = Questions()
+        Questions()
 
 # Class for the help page
 class Help:
@@ -75,6 +106,7 @@ class Help:
         # setting up help window size
         self.help_box = Toplevel()
         self.help_box.geometry("640x360")
+        # setting up the help window background colour
         self.help_box.configure(bg=background_color)
 
         # setting up help frame
@@ -94,12 +126,13 @@ class Help:
         # creating label for help text
         self.help_text = Label(self.help_frame, text="", justify=CENTER,
                                bg=background_color)
+        # using grid method to position help text correctly
         self.help_text.grid(row=1, columnspan=2)
 
         # creating a dismiss button
         dismiss_btn = Button(self.help_frame, text="DISMISS", 
                              font=("Arial", 24, "bold"), 
-                             bg="#F27F0C", fg="#053F5C",
+                             bg="red", fg="#053F5C",
                              command=self.close_help)
         
         # using grid method to position dismiss button correctly
@@ -107,47 +140,57 @@ class Help:
 
     def close_help(self):
         # Close the help box
-        self.help_box.destroy()
+        self.help_box.destroy()    
 
 # Class for the question pages
 class Questions:
     def __init__(self):
+
+        score_list = []
         
         # quiz question list
         questions = [
             "Solve: 7x + 13 - 2x + 5 = 3",
             "Solve: x(4 + 6) + 25 - 8 = 7",
             "Expand and simplify: (2x - 7)(3x + 4)",
-            "Expand and simplify: (4x + 8)^2",
-            "Solve: x^2 + 9x - 10 = 0",
-            "Solve: 2x^2 + 7x - 4 = 0",
-            "Solve: 2^(x-3) = 4",
-            "Solve: 9^(2x+4) = 27^(x+5)",
-            "Expand and simplify: (2x-7)^3",
-            "Expand and simplify: (3x+2)^3"
+            "Expand and simplify: (4x + 8)\N{SUPERSCRIPT TWO}",
+            "Solve: x\N{SUPERSCRIPT TWO} + 9x - 10 = 0",
+            "Solve: 2x\N{SUPERSCRIPT TWO} + 7x - 4 = 0",
+            "Solve: 5x\N{SUPERSCRIPT TWO} - 23x -10 = 0",
+            "Solve: 3x\N{SUPERSCRIPT TWO} + 36x + 108",
+            "Expand and simplify: (2x-7)\N{SUPERSCRIPT THREE}",
+            "Expand and simplify: (3x+2)\N{SUPERSCRIPT THREE}"
         ]
         
         # quiz option list
         options = [
             ['x = 3', 'x = -3', 'x = 4', 'x = -3'],
             ['x = -1', 'x = 1', 'x = 3', 'x = -1'],
-            ['4x^2+16x-32', '6x^2-13x+29', '6x^2-13x-28', '6x^2-13x-28'],
-            ['4x^2-5x-16', '4x^2+5x-16', '4x^2+5x+16', '4x^2+5x+16'],
+            ['4x\N{SUPERSCRIPT TWO}+16x-32', '6x\N{SUPERSCRIPT TWO}-13x+29',
+             '6x\N{SUPERSCRIPT TWO}-13x-28', '6x\N{SUPERSCRIPT TWO}-13x-28'],
+            ['4x\N{SUPERSCRIPT TWO}-5x-16', '4x\N{SUPERSCRIPT TWO}+5x-16',
+             '4x\N{SUPERSCRIPT TWO}+5x+16', '4x\N{SUPERSCRIPT TWO}+5x+16'],
             ['x = 10, 1', 'x = -10,-1', 'x = -10,1', 'x = -10,1'],
             ['x = 0.5,-4', 'x = -0.5,4', 'x = 0.5,4', 'x = 0.5,-4'],
-            ['x = -5', 'x = 6', 'x = 5', 'x = 5'],
-            ['x = 7', 'x = 8', 'x = -7', 'x = 7'],
-            ['8x^3-84x^2+294x-343', '8x^3+80x^2+294x-333',
-             '8x^3+84x^2-294x+343', '8x^3-84x^2+294x-343'],
-            ['27x^3-54x^2+36x+8', '-27x^3+54x^2+36x+8',
-             '27x^3+54x^2+36x+8', '27x^3+54x^2+36x+8']
+            ['x = -5, 2/5 ', 'x = 6', 'x = 5,-2/5', 'x = 5,-2/5'],
+            ['x = -6', 'x = 8', 'x = -7', 'x = -6'],
+            ['8x\N{SUPERSCRIPT THREE}-84x\N{SUPERSCRIPT TWO}+294x-343',
+             '8x\N{SUPERSCRIPT THREE}+80x\N{SUPERSCRIPT TWO}+294x-333',
+             '8x\N{SUPERSCRIPT THREE}+84x\N{SUPERSCRIPT TWO}-294x+343',
+             '8x\N{SUPERSCRIPT THREE}-84x\N{SUPERSCRIPT TWO}+294x-343'],
+            ['27x\N{SUPERSCRIPT THREE}-54x\N{SUPERSCRIPT TWO}+36x+8',
+             '-27x\N{SUPERSCRIPT THREE}+54x\N{SUPERSCRIPT TWO}+36x+8',
+             '27x\N{SUPERSCRIPT THREE}+54x\N{SUPERSCRIPT TWO}+36x+8',
+             '27x\N{SUPERSCRIPT THREE}+54x\N{SUPERSCRIPT TWO}+36x+8']
         ]
 
         # setting up question box
         background_color = "#9FE7F5"
 
+        #setting up question window size 
         self.question_box = Toplevel()
         self.question_box.geometry("640x360")
+        # setting up the window background colour
         self.question_box.configure(bg=background_color)
 
         # setting up question frame
@@ -177,21 +220,24 @@ class Questions:
         v3 = StringVar(self.question_frame)
         
         # creating radiobuttons for options
+        # radiobutton for option 1
         option1 = tk.Radiobutton(self.question_frame, bg="#9FE7F5",
                                  fg="#053F5C",
                                  variable=v1,
                                  font=("Times New Roman", 24, "bold"),
-                                 command=lambda: checkAnswer(option1))
+                                 command=lambda: Check_Answer(option1))
+        # radiobutton for option 2
         option2 = tk.Radiobutton(self.question_frame, bg="#9FE7F5",
                                  fg="#053F5C", 
                                  variable=v2,
                                  font=("Times New Roman", 24, "bold"),
-                                 command=lambda: checkAnswer(option2))
+                                 command=lambda: Check_Answer(option2))
+        # radiobutton for option 3
         option3 = tk.Radiobutton(self.question_frame, bg="#9FE7F5",
                                  fg="#053F5C", 
                                  variable=v3,
                                  font=("Times New Roman", 24, "bold"),
-                                 command=lambda: checkAnswer(option3))
+                                 command=lambda: Check_Answer(option3))
         # creating the "next question" button
         button_next = tk.Button(self.question_frame, text="NEXT QUESTION",
                                 justify=CENTER,
@@ -199,15 +245,15 @@ class Questions:
                                 fg="#053F5C",
                                 command=lambda: display_Next_Question())
 
-
         self.question_frame.pack(fill="both", expand="true")
+        # using place method to position question label 
         question_label.place(relx=0.5, rely=0.25, anchor=CENTER)
 
         # grid method to position options 
         option1.place(anchor=W, relx=0.1, rely=0.5)
         option2.place(anchor=W, relx=0.1, rely=0.6)
         option3.place(anchor=W, relx=0.1, rely=0.7)
-
+        # using place method to position the next button 
         button_next.place(relx=0.5, rely=0.9, anchor=CENTER)
 
         index = 0
@@ -220,7 +266,7 @@ class Questions:
             option3["state"] = state
 
         # function to check the selected answer
-        def checkAnswer(radio):
+        def Check_Answer(radio):
             nonlocal correct, index
 
             # second option is correct
@@ -251,7 +297,7 @@ class Questions:
             else:
                 question_label["text"] = questions[index]
 
-            
+            # changes radiobuttons into a clickable state
             disable_buttons("normal")
             opts = options[index]
             option1["text"] = opts[0]
