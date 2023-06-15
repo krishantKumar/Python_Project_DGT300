@@ -1,41 +1,10 @@
-# Python GUI quiz project, 20/05/23
-# V1
-
+# Krishant Kumar 2023 Quiz Program for DGT 300
 ##########   IMPORTS   ##########
-import tkinter as tk
+
 from tkinter import *
-from tkinter import StringVar
+from tkinter import messagebox
 
 ##########   CLASS CODE   ##########
-# class Name:
-#     def __init__(self, parent):
-#         # setting background colour
-#         background_color = "#9FE7F5"
-
-#         #TODO: READ AND WRITE FILES TO STORE NAME AND SCORE
-
-#         # setting up Frame
-#         self.name_frame= Frame(parent, bg = background_color)
-
-#         # using place method to keep content in the frame centred
-#         self.name_frame.place(relx=0.5, rely=0.5, anchor=CENTER)
-#         # GUI elements
-#         self.heading_name_label = Label(self.name_frame, 
-#                                         text="What is your name?",
-#                                         justify=CENTER, font=("Arial", 24,
-#                                                               "bold"),
-#                                    fg="#053F5C", bg=background_color)
-#         self.heading_name_label.grid(row=0, columnspan=2, padx=10, pady=10)
-
-#         self.name_entry = Entry(self.name_frame)
-#         self.name_entry.grid(row=1, columnspan=2)
-
-#         self.submit_btn = Button(self.name_frame, text="SUBMIT",
-#                                  justify=CENTER, font=("Arial", 14, "bold"),
-#                                  bg="#F7AD19", fg="#053F5C")
-#         self.submit_btn.grid(row=2, columnspan=2, padx=10, pady=10)
-        
-
 class Home:
     def __init__(self, parent):
         # setting background colour
@@ -62,7 +31,7 @@ class Home:
                                 font=("Arial", 24, "bold"), bg="#F7AD19",
                                 fg="#053F5C", command=self.open_questions)
         
-        # using grid method to move button to correct location
+        # using grid method to move button to correct_ans location
         self.begin_btn.grid(row=1, column=0, padx=10, pady=10)
 
         # creating the help button
@@ -70,7 +39,7 @@ class Home:
                                font=("Arial", 24, "bold"), bg="#F7AD19",
                                fg="#053F5C", command=self.var_help)
         
-        # using grid method to position help button correctly
+        # using grid method to position help button correct_ansly
         self.help_btn.grid(row=1, column=1, padx=10, pady=10)
     
     def var_help(self):
@@ -120,13 +89,13 @@ class Help:
                              justify=CENTER, font=("Courier New", 36, "bold"), 
                              fg="#053F5C", bg=background_color)
         
-        # using grid method to position heading correctly
+        # using grid method to position heading correct_ansly
         help_heading.grid(row=0, columnspan=2, padx=5, pady=5)
 
         # creating label for help text
         self.help_text = Label(self.help_frame, text="", justify=CENTER,
                                bg=background_color)
-        # using grid method to position help text correctly
+        # using grid method to position help text correct_ansly
         self.help_text.grid(row=1, columnspan=2)
 
         # creating a dismiss button
@@ -135,18 +104,68 @@ class Help:
                              bg="red", fg="#053F5C",
                              command=self.close_help)
         
-        # using grid method to position dismiss button correctly
+        # using grid method to position dismiss button correct_ansly
         dismiss_btn.grid(row=2, columnspan=2, pady=5, padx=5)
 
     def close_help(self):
         # Close the help box
         self.help_box.destroy()    
+    
+
+class Name:
+    def __init__(self):
+        # setting background colour
+        background_color = "#9FE7F5"
+        
+
+        def submit():
+            global name
+            name = self.name_entry.get()
+            while True:
+                if len(name) <= 0:
+                    root.withdraw() # close home page
+                    messagebox.showerror("Name Error","Please enter a name!")
+                    break
+                else:
+                    root.withdraw() # close home page
+                    self.name_box.destroy()
+                    break
+
+
+        
+        # setting up 2nd window for name entry
+        self.name_box= Toplevel()
+        
+        # Adjust the size and position of the window 
+        self.name_box.geometry("640x360")
+        self.name_box.state('zoomed')
+
+        # setting up the window background colour
+        self.name_box.configure(bg=background_color)
+
+        self.name_frame = Frame(self.name_box, bg=background_color)
+        # using place method to keep content in the frame centred
+        self.name_frame.place(relx=0.5, rely=0.5, anchor=CENTER)
+
+        # GUI elements
+        self.heading_name_label = Label(self.name_frame, 
+                                        text="What is your name?",
+                                        justify=CENTER, font=("Arial", 24,
+                                                              "bold"),
+                                   fg="#053F5C", bg=background_color)
+        self.heading_name_label.grid(row=0, columnspan=2, padx=10, pady=10)
+
+        self.name_entry = Entry(self.name_frame, font=("Arial", 20))
+        self.name_entry.grid(row=1, columnspan=2)
+
+        self.submit_btn = Button(self.name_frame, text="SUBMIT",
+                                 justify=CENTER, font=("Arial", 14, "bold"),
+                                 bg="#F7AD19", fg="#053F5C", command=submit)
+        self.submit_btn.grid(row=2, columnspan=2, padx=10, pady=10)
 
 # Class for the question pages
 class Questions:
     def __init__(self):
-
-        score_list = []
         
         # quiz question list
         questions = [
@@ -164,32 +183,35 @@ class Questions:
         
         # quiz option list
         options = [
-            ['x = 3', 'x = -3', 'x = 4', 'x = -3'],
-            ['x = -1', 'x = 1', 'x = 3', 'x = -1'],
+            ['x = 3', 'x = -3', 'x = 4', "x = -3"],
+            ['x = -1', 'x = 1', 'x = 3', "x = -1"],
             ['4x\N{SUPERSCRIPT TWO}+16x-32', '6x\N{SUPERSCRIPT TWO}-13x+29',
-             '6x\N{SUPERSCRIPT TWO}-13x-28', '6x\N{SUPERSCRIPT TWO}-13x-28'],
+             '6x\N{SUPERSCRIPT TWO}-13x-28', "6x\N{SUPERSCRIPT TWO}-13x-28"],
             ['4x\N{SUPERSCRIPT TWO}-5x-16', '4x\N{SUPERSCRIPT TWO}+5x-16',
-             '4x\N{SUPERSCRIPT TWO}+5x+16', '4x\N{SUPERSCRIPT TWO}+5x+16'],
-            ['x = 10, 1', 'x = -10,-1', 'x = -10,1', 'x = -10,1'],
-            ['x = 0.5,-4', 'x = -0.5,4', 'x = 0.5,4', 'x = 0.5,-4'],
-            ['x = -5, 2/5 ', 'x = 6', 'x = 5,-2/5', 'x = 5,-2/5'],
-            ['x = -6', 'x = 8', 'x = -7', 'x = -6'],
+             '4x\N{SUPERSCRIPT TWO}+5x+16', "4x\N{SUPERSCRIPT TWO}+5x+16"],
+            ['x = 10, 1', 'x = -10,-1', 'x = -10,1', "x = -10,1"],
+            ['x = 0.5,-4', 'x = -0.5,4', 'x = 0.5,4', "x = 0.5,-4"],
+            ['x = -5, 2/5 ', 'x = 6', 'x = 5,-2/5', "x = 5,-2/5"],
+            ['x = -6', 'x = 8', 'x = -7', "x = -6"],
             ['8x\N{SUPERSCRIPT THREE}-84x\N{SUPERSCRIPT TWO}+294x-343',
              '8x\N{SUPERSCRIPT THREE}+80x\N{SUPERSCRIPT TWO}+294x-333',
              '8x\N{SUPERSCRIPT THREE}+84x\N{SUPERSCRIPT TWO}-294x+343',
-             '8x\N{SUPERSCRIPT THREE}-84x\N{SUPERSCRIPT TWO}+294x-343'],
+             "8x\N{SUPERSCRIPT THREE}-84x\N{SUPERSCRIPT TWO}+294x-343"],
             ['27x\N{SUPERSCRIPT THREE}-54x\N{SUPERSCRIPT TWO}+36x+8',
              '-27x\N{SUPERSCRIPT THREE}+54x\N{SUPERSCRIPT TWO}+36x+8',
              '27x\N{SUPERSCRIPT THREE}+54x\N{SUPERSCRIPT TWO}+36x+8',
-             '27x\N{SUPERSCRIPT THREE}+54x\N{SUPERSCRIPT TWO}+36x+8']
+             "27x\N{SUPERSCRIPT THREE}+54x\N{SUPERSCRIPT TWO}+36x+8"]
         ]
 
         # setting up question box
         background_color = "#9FE7F5"
 
+        Name()
+
         #setting up question window size 
         self.question_box = Toplevel()
         self.question_box.geometry("640x360")
+        self.question_box.state('zoomed')
         # setting up the window background colour
         self.question_box.configure(bg=background_color)
 
@@ -200,7 +222,7 @@ class Questions:
         self.question_frame.place(relx=0.5, rely=0.5, anchor=CENTER)
 
         # creating heading that says "Question:"
-        question_heading = tk.Label(self.question_frame, text="Question:",
+        question_heading = Label(self.question_frame, text="Question:",
                                     justify=CENTER, 
                                     font=("Courier New", 18, "bold"),
                                     bg="#9FE7F5", fg="#053F5C")
@@ -209,37 +231,37 @@ class Questions:
         question_heading.place(relx=0.5, rely=0.05, anchor=CENTER)
 
         # creating white background for question
-        question_label = tk.Label(self.question_frame, height=3, width=30,
+        question_label = Label(self.question_frame, height=3, width=30,
                                   bg="white",
                                   font=("Times New Roman", 24, "bold"),
                                   fg="#053F5C", wraplength=500)
 
         # using StringVar to manage options
-        v1 = StringVar(self.question_frame)
-        v2 = StringVar(self.question_frame)
-        v3 = StringVar(self.question_frame)
+        v1 = StringVar()
+        v2 = StringVar()
+        v3 = StringVar()
         
         # creating radiobuttons for options
         # radiobutton for option 1
-        option1 = tk.Radiobutton(self.question_frame, bg="#9FE7F5",
+        option1 = Radiobutton(self.question_frame, bg="#9FE7F5",
                                  fg="#053F5C",
                                  variable=v1,
                                  font=("Times New Roman", 24, "bold"),
                                  command=lambda: Check_Answer(option1))
         # radiobutton for option 2
-        option2 = tk.Radiobutton(self.question_frame, bg="#9FE7F5",
+        option2 = Radiobutton(self.question_frame, bg="#9FE7F5",
                                  fg="#053F5C", 
                                  variable=v2,
                                  font=("Times New Roman", 24, "bold"),
                                  command=lambda: Check_Answer(option2))
         # radiobutton for option 3
-        option3 = tk.Radiobutton(self.question_frame, bg="#9FE7F5",
+        option3 = Radiobutton(self.question_frame, bg="#9FE7F5",
                                  fg="#053F5C", 
                                  variable=v3,
                                  font=("Times New Roman", 24, "bold"),
                                  command=lambda: Check_Answer(option3))
         # creating the "next question" button
-        button_next = tk.Button(self.question_frame, text="NEXT QUESTION",
+        button_next = Button(self.question_frame, text="NEXT QUESTION",
                                 justify=CENTER,
                                 font=("Arial", 24, "bold"), bg="#F7AD19",
                                 fg="#053F5C",
@@ -257,7 +279,7 @@ class Questions:
         button_next.place(relx=0.5, rely=0.9, anchor=CENTER)
 
         index = 0
-        correct = 0
+        correct_ans = 0
 
         # function to disable radiobuttons
         def disable_buttons(state):
@@ -267,30 +289,44 @@ class Questions:
 
         # function to check the selected answer
         def Check_Answer(radio):
-            nonlocal correct, index
-
+            nonlocal correct_ans, index
             # second option is correct
             if radio["text"] == options[index][3]:
-                correct += 1
+                correct_ans += 1
 
             index += 1
             disable_buttons("disable")
 
         # function to display next questions
         def display_Next_Question():
-            nonlocal index, correct
+            nonlocal index, correct_ans
+            global name
 
             # if statement to check for "Home" text in button_next
             if button_next["text"] == "Home":
-                correct = 0
+                correct_ans = 0
                 index = 0
+                score = 0
+                name = ""
+                root.deiconify()  # Reopen the main Tkinter window
                 self.question_box.destroy()
 
             # outputs the final score our of ten 
             if index == len(options):
-                question_label["text"] = str(correct) + " / " + str(len(options))
+                question_label["text"] = str(correct_ans) + " / " + '10'
+
+                score = "{}/10".format(str(correct_ans))
+                #name= 'KK'
                 button_next["text"] = "Home"
-                if correct >= len(options) / 2:
+                try:
+                    with open(
+                        "quiz_file.txt",
+                          'a') as file:
+                        file.write("\nName: {}, Score: {}".format(name,score))
+                except FileNotFoundError:
+                    print("Saving score unsuccessful (Saving file not found).")
+
+                if correct_ans >= len(options) / 2:
                     question_label["bg"] = "green"
                 else:
                     question_label["bg"] = "red"
@@ -312,12 +348,14 @@ class Questions:
 
         display_Next_Question()
 
+
 # Creating main window
-root = tk.Tk()
+root = Tk()
 # Main routine
 background_color = "#9FE7F5"
 
 root.geometry("640x360")
+root.state('zoomed')
 root.configure(bg=background_color)
 root.title("Maths Quiz")
 quiz = Home(root)
