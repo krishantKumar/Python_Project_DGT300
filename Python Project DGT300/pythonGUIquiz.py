@@ -1,12 +1,8 @@
-# Python GUI quiz project, 20/05/23
-# V1
-
+# Krishant Kumar 2023 Quiz Program for DGT 300
 ##########   IMPORTS   ##########
 
 from tkinter import *
 from tkinter import messagebox
-
-
 
 ##########   CLASS CODE   ##########
 class Home:
