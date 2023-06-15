@@ -1,4 +1,4 @@
-# Krishant Kumar 2023 Quiz Program for DGT 300
+
 ##########   IMPORTS   ##########
 
 from tkinter import *
@@ -24,7 +24,7 @@ class Home:
                                    fg="#053F5C", bg=background_color)
         
         # using grid method to move object into different rows and columns 
-        self.heading_label.grid(row=0, columnspan=2, padx=50, pady=50)
+        self.heading_label.grid(row=0, columnspan=3, padx=50, pady=50)
 
         # creating the begin quiz button
         self.begin_btn = Button(self.home_frame, text="BEGIN QUIZ",
@@ -41,6 +41,12 @@ class Home:
         
         # using grid method to position help button correct_ansly
         self.help_btn.grid(row=1, column=1, padx=10, pady=10)
+
+        self.leaderboard_button = Button(self.home_frame, text="LEADERBOARD",
+                                    font=("Arial", 24, "bold"), bg="#F7AD19",
+                                    fg="#053F5C", command=self.open_leaderboard
+                                    )
+        self.leaderboard_button.grid(row=1, column=2, padx=10, pady=10)
     
     def var_help(self):
         # Opening the help box
@@ -62,10 +68,83 @@ class Home:
                                      font=("Arial", 10, "bold"),
                                      fg="#053F5C")
 
-        
+    def open_leaderboard(self):
+        Leaderboard()
+
+    global leaderboard_dict
+    leaderboard_dict = {}
+    # # reading scores file
+    try:
+        with open(
+            r"C:\Users\krish\Desktop\Python Project DGT300\quiz_file.txt", 'r'
+            ) as read_score_file:
+            scores = read_score_file.readlines()
+            for line in scores:
+                key, value = line.strip().split(",")
+                leaderboard_dict[key] = float(value)
+
+    except FileNotFoundError:
+        print("Saving score unsuccessful (Saving file not found).") 
+                
     def open_questions(self):
         # Opening the questions
         Questions()
+
+class Leaderboard:
+    def __init__(self):
+        background_color = "#9FE7F5"
+        self.leaderboard_box = Toplevel()
+        self.leaderboard_box.geometry("640x360")
+        self.leaderboard_box.state('zoomed')
+
+        # setting up the help window background colour
+        self.leaderboard_box.configure(bg=background_color)
+
+        # setting up help frame
+        self.leaderboard_frame = Frame(self.leaderboard_box, bg=background_color)
+
+        # using place method to keep content in the frame centred
+        self.leaderboard_frame.place(relx=0.5, rely=0.5, anchor=CENTER)
+
+        # creating the heading for the help page using Label
+        leaderboard_heading = Label(self.leaderboard_frame, text="Leaderboard", 
+                             justify=CENTER, font=("Courier New", 36, "bold"), 
+                             fg="#053F5C", bg=background_color)
+        
+        # using grid method to position heading correct_ans
+        leaderboard_heading.grid(row=0, columnspan=2, padx=5, pady=5)
+
+        # creating label for leaderboard text
+        self.leaderboard_text = Text(
+            self.leaderboard_frame, height=15, width=30, font=("Arial", 16), 
+            padx=20, pady=20)
+
+        # using grid method to position leaderboard text correct_ans
+        self.leaderboard_text.grid(row=1, columnspan=2)
+
+        # creating a dismiss button
+        dismiss_btn = Button(self.leaderboard_frame, text="DISMISS", 
+                             font=("Arial", 24, "bold"), 
+                             bg="red", fg="#053F5C",
+                             command=self.close_leaderboard)
+        
+        # using grid method to position dismiss button correct_ans
+        dismiss_btn.grid(row=2, columnspan=2, pady=5, padx=5)
+
+        # creates ordered dictionary of leaderboard
+        sorted_leaderboard_dict = sorted(
+            leaderboard_dict.items(), key=lambda x:x[1], reverse=True
+            )
+        for name, score in sorted_leaderboard_dict:
+            self.leaderboard_text.insert(
+                END, "Name: {}   Score: {}\n".format(name, score)
+                )
+        self.leaderboard_text.config(state=DISABLED)
+
+    def close_leaderboard(self):
+        # Close the leaderboard box
+        self.leaderboard_box.destroy()
+
 
 # Class for the help page
 class Help:
@@ -89,13 +168,13 @@ class Help:
                              justify=CENTER, font=("Courier New", 36, "bold"), 
                              fg="#053F5C", bg=background_color)
         
-        # using grid method to position heading correct_ansly
+        # using grid method to position heading correct_ans
         help_heading.grid(row=0, columnspan=2, padx=5, pady=5)
 
         # creating label for help text
         self.help_text = Label(self.help_frame, text="", justify=CENTER,
                                bg=background_color)
-        # using grid method to position help text correct_ansly
+        # using grid method to position help text correct_ans
         self.help_text.grid(row=1, columnspan=2)
 
         # creating a dismiss button
@@ -104,7 +183,7 @@ class Help:
                              bg="red", fg="#053F5C",
                              command=self.close_help)
         
-        # using grid method to position dismiss button correct_ansly
+        # using grid method to position dismiss button correct_ans
         dismiss_btn.grid(row=2, columnspan=2, pady=5, padx=5)
 
     def close_help(self):
@@ -125,6 +204,11 @@ class Name:
                 if len(name) <= 0:
                     root.withdraw() # close home page
                     messagebox.showerror("Name Error","Please enter a name!")
+                    break
+                elif  name in leaderboard_dict:
+                    root.withdraw() # close home page
+                    messagebox.showerror("Name Error","Name already taken!"
+                                         "\nPlease enter a new name!")
                     break
                 else:
                     root.withdraw() # close home page
@@ -187,11 +271,11 @@ class Questions:
             ['x = -1', 'x = 1', 'x = 3', "x = -1"],
             ['4x\N{SUPERSCRIPT TWO}+16x-32', '6x\N{SUPERSCRIPT TWO}-13x+29',
              '6x\N{SUPERSCRIPT TWO}-13x-28', "6x\N{SUPERSCRIPT TWO}-13x-28"],
-            ['4x\N{SUPERSCRIPT TWO}-5x-16', '4x\N{SUPERSCRIPT TWO}+5x-16',
-             '4x\N{SUPERSCRIPT TWO}+5x+16', "4x\N{SUPERSCRIPT TWO}+5x+16"],
+            ['16x\N{SUPERSCRIPT TWO}-64x-64', '16x\N{SUPERSCRIPT TWO}+64x-64',
+             '16x\N{SUPERSCRIPT TWO}+64x+64', "16x\N{SUPERSCRIPT TWO}+64x+64"],
             ['x = 10, 1', 'x = -10,-1', 'x = -10,1', "x = -10,1"],
             ['x = 0.5,-4', 'x = -0.5,4', 'x = 0.5,4', "x = 0.5,-4"],
-            ['x = -5, 2/5 ', 'x = 6', 'x = 5,-2/5', "x = 5,-2/5"],
+            ['x = -5, 2/5 ', 'x = 6', 'x = 5,-0.4', "x = 5,-0.4"],
             ['x = -6', 'x = 8', 'x = -7', "x = -6"],
             ['8x\N{SUPERSCRIPT THREE}-84x\N{SUPERSCRIPT TWO}+294x-343',
              '8x\N{SUPERSCRIPT THREE}+80x\N{SUPERSCRIPT TWO}+294x-333',
@@ -315,14 +399,14 @@ class Questions:
             if index == len(options):
                 question_label["text"] = str(correct_ans) + " / " + '10'
 
-                score = "{}/10".format(str(correct_ans))
-                #name= 'KK'
+                score = "{}".format(str(correct_ans))
+                
                 button_next["text"] = "Home"
                 try:
                     with open(
                         "quiz_file.txt",
                           'a') as file:
-                        file.write("\nName: {}, Score: {}".format(name,score))
+                        file.write("\n{},{}".format(name,score))
                 except FileNotFoundError:
                     print("Saving score unsuccessful (Saving file not found).")
 
