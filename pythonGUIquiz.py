@@ -6,6 +6,8 @@ from tkinter import messagebox
 
 ##########   CLASS CODE   ##########
 class Home:
+    """The home class includes the main window with a leaderboard, help and
+     begin quiz button"""
     def __init__(self, parent):
         # setting background colour
         background_color = "#9FE7F5"
@@ -19,11 +21,11 @@ class Home:
         # GUI elements
         self.heading_label = Label(self.home_frame, text="MATHS QUIZ\n"
                                    "NCEA Level 1 & 2",
-                                   justify=CENTER, font=("Courier New", 32,
+                                   justify=CENTER, font=("Courier new", 32,
                                     "bold"),
                                    fg="#053F5C", bg=background_color)
         
-        # using grid method to move object into different rows and columns 
+        # using grid method to move object into different rows and columns
         self.heading_label.grid(row=0, columnspan=3, padx=50, pady=50)
 
         # creating the begin quiz button
@@ -42,6 +44,7 @@ class Home:
         # using grid method to position help button correct_ansly
         self.help_btn.grid(row=1, column=1, padx=10, pady=10)
 
+        # creating the leaderboard button
         self.leaderboard_button = Button(self.home_frame, text="LEADERBOARD",
                                     font=("Arial", 24, "bold"), bg="#F7AD19",
                                     fg="#053F5C", command=self.open_leaderboard
@@ -51,20 +54,22 @@ class Home:
     def var_help(self):
         # Opening the help box
         get_help = Help()
-        get_help.help_text.configure(text="Welcome to the Algebra Maths Quiz!\n"
-                                     'To begin the quiz, press "Begin Quiz".\n'
-                                     "This quiz tests you knowledge on basic\n"
-                                     "Algebra skills such as solving,\n"
-                                     "simplifying and expanding. NO\n"
+        get_help.help_text.configure(text="Welcome to the Algebra Maths Quiz!"
+                                     ' To begin the quiz, press "Begin Quiz".\n'
+                                     "This quiz tests you knowledge on basic"
+                                     " algebra skills such as solving,\n"
+                                     " simplifying and expanding. NO "
                                      "CALCULATORS ALLOWED. These questions\n"
-                                     "can be done in a book or on a paper.\n\n"
-                                     "When beginning the quiz, you have three\n"
-                                     "options available to choose from.\n"
-                                     "Press one option and then click on the\n"
-                                     '"Next Question" button. Your score\n'
-                                     "will only be displayed at the end of\n"
-                                     "the quiz.",                                    
-                                     justify=CENTER,
+                                     " can be done in a book or on paper.\n\n"
+                                     " When beginning the quiz, you have three"
+                                     " options available to choose from.\n"
+                                     "Press the option you think is right"
+                                     ' and then click on the" Next Question"'
+                                     " button.\n Your score will only be"
+                                     " displayed at the end of the quiz.\n\n"
+                                     " Note that the leaderboard only updates"
+                                     " after closing and re-opening the"
+                                     " program.", justify=CENTER,
                                      font=("Arial", 10, "bold"),
                                      fg="#053F5C")
 
@@ -84,13 +89,16 @@ class Home:
                 leaderboard_dict[key] = float(value)
 
     except FileNotFoundError:
-        print("Saving score unsuccessful (Saving file not found).") 
+        print("Saving score unsuccessful (Saving file not found).")
                 
     def open_questions(self):
         # Opening the questions
         Questions()
 
 class Leaderboard:
+    """The leaderboard class includes the code for the leaderboard window
+    and the code that inserts the txt file contents in order from highest
+    to lowest"""
     def __init__(self):
         background_color = "#9FE7F5"
         self.leaderboard_box = Toplevel()
@@ -101,14 +109,15 @@ class Leaderboard:
         self.leaderboard_box.configure(bg=background_color)
 
         # setting up help frame
-        self.leaderboard_frame = Frame(self.leaderboard_box, bg=background_color)
+        self.leaderboard_frame = Frame(self.leaderboard_box,
+                                       bg=background_color)
 
         # using place method to keep content in the frame centred
         self.leaderboard_frame.place(relx=0.5, rely=0.5, anchor=CENTER)
 
         # creating the heading for the help page using Label
-        leaderboard_heading = Label(self.leaderboard_frame, text="Leaderboard", 
-                             justify=CENTER, font=("Courier New", 36, "bold"), 
+        leaderboard_heading = Label(self.leaderboard_frame, text="Leaderboard",
+                             justify=CENTER, font=("Courier New", 36, "bold"),
                              fg="#053F5C", bg=background_color)
         
         # using grid method to position heading correct_ans
@@ -116,15 +125,15 @@ class Leaderboard:
 
         # creating label for leaderboard text
         self.leaderboard_text = Text(
-            self.leaderboard_frame, height=15, width=30, font=("Arial", 16), 
+            self.leaderboard_frame, height=15, width=30, font=("Arial", 16),
             padx=20, pady=20)
 
         # using grid method to position leaderboard text correct_ans
         self.leaderboard_text.grid(row=1, columnspan=2)
 
         # creating a dismiss button
-        dismiss_btn = Button(self.leaderboard_frame, text="DISMISS", 
-                             font=("Arial", 24, "bold"), 
+        dismiss_btn = Button(self.leaderboard_frame, text="DISMISS",
+                             font=("Arial", 24, "bold"),
                              bg="red", fg="#053F5C",
                              command=self.close_leaderboard)
         
@@ -148,6 +157,8 @@ class Leaderboard:
 
 # Class for the help page
 class Help:
+    """The help class contains the help window code, text of instructions 
+    and a help heading label"""
     def __init__(self):
         background_color = "#9FE7F5"
 
@@ -164,8 +175,8 @@ class Help:
         self.help_frame.place(relx=0.5, rely=0.5, anchor=CENTER)
 
         # creating the heading for the help page using Label
-        help_heading = Label(self.help_frame, text="Help & Instructions", 
-                             justify=CENTER, font=("Courier New", 36, "bold"), 
+        help_heading = Label(self.help_frame, text="Help & Instructions",
+                             justify=CENTER, font=("Courier New", 36, "bold"),
                              fg="#053F5C", bg=background_color)
         
         # using grid method to position heading correct_ans
@@ -178,8 +189,8 @@ class Help:
         self.help_text.grid(row=1, columnspan=2)
 
         # creating a dismiss button
-        dismiss_btn = Button(self.help_frame, text="DISMISS", 
-                             font=("Arial", 24, "bold"), 
+        dismiss_btn = Button(self.help_frame, text="DISMISS",
+                             font=("Arial", 24, "bold"),
                              bg="red", fg="#053F5C",
                              command=self.close_help)
         
@@ -188,10 +199,13 @@ class Help:
 
     def close_help(self):
         # Close the help box
-        self.help_box.destroy()    
+        self.help_box.destroy()
     
 
 class Name:
+    """The name class contains the code that gives an error message when the 
+    entry field is left empty and when the entry field contains a name that 
+    already exists in the txt file"""
     def __init__(self):
         # setting background colour
         background_color = "#9FE7F5"
@@ -220,7 +234,7 @@ class Name:
         # setting up 2nd window for name entry
         self.name_box= Toplevel()
         
-        # Adjust the size and position of the window 
+        # Adjust the size and position of the window
         self.name_box.geometry("640x360")
         self.name_box.state('zoomed')
 
@@ -232,7 +246,7 @@ class Name:
         self.name_frame.place(relx=0.5, rely=0.5, anchor=CENTER)
 
         # GUI elements
-        self.heading_name_label = Label(self.name_frame, 
+        self.heading_name_label = Label(self.name_frame,
                                         text="What is your name?",
                                         justify=CENTER, font=("Arial", 24,
                                                               "bold"),
@@ -249,20 +263,23 @@ class Name:
 
 # Class for the question pages
 class Questions:
+    """The questions class includes the options list and questions list. The 
+    questions class displays the questions and displays the score. The score is
+    then stored into a txt file."""
     def __init__(self):
         
         # quiz question list
         questions = [
-            "Solve: 7x + 13 - 2x + 5 = 3",
-            "Solve: x(4 + 6) + 25 - 8 = 7",
-            "Expand and simplify: (2x - 7)(3x + 4)",
-            "Expand and simplify: (4x + 8)\N{SUPERSCRIPT TWO}",
-            "Solve: x\N{SUPERSCRIPT TWO} + 9x - 10 = 0",
-            "Solve: 2x\N{SUPERSCRIPT TWO} + 7x - 4 = 0",
-            "Solve: 5x\N{SUPERSCRIPT TWO} - 23x -10 = 0",
-            "Solve: 3x\N{SUPERSCRIPT TWO} + 36x + 108",
-            "Expand and simplify: (2x-7)\N{SUPERSCRIPT THREE}",
-            "Expand and simplify: (3x+2)\N{SUPERSCRIPT THREE}"
+            "Solve:\n7x + 13 - 2x + 5 = 3",
+            "Solve:\nx(4 + 6) + 25 - 8 = 7",
+            "Expand and simplify:\n(2x - 7)(3x + 4)",
+            "Expand and simplify:\n(4x + 8)\N{SUPERSCRIPT TWO}",
+            "Solve:\nx\N{SUPERSCRIPT TWO} + 9x - 10 = 0",
+            "Solve:\n2x\N{SUPERSCRIPT TWO} + 7x - 4 = 0",
+            "Solve:\n5x\N{SUPERSCRIPT TWO} - 23x -10 = 0",
+            "Solve:\n3x\N{SUPERSCRIPT TWO} + 36x + 108",
+            "Expand and simplify:\n(2x-7)\N{SUPERSCRIPT THREE}",
+            "Expand and simplify:\n(3x+2)\N{SUPERSCRIPT THREE}"
         ]
         
         # quiz option list
@@ -275,7 +292,7 @@ class Questions:
              '16x\N{SUPERSCRIPT TWO}+64x+64', "16x\N{SUPERSCRIPT TWO}+64x+64"],
             ['x = 10, 1', 'x = -10,-1', 'x = -10,1', "x = -10,1"],
             ['x = 0.5,-4', 'x = -0.5,4', 'x = 0.5,4', "x = 0.5,-4"],
-            ['x = -5, 2/5 ', 'x = 6', 'x = 5,-0.4', "x = 5,-0.4"],
+            ['x = -5, 0.4', 'x = 6', 'x = 5,-0.4', "x = 5,-0.4"],
             ['x = -6', 'x = 8', 'x = -7', "x = -6"],
             ['8x\N{SUPERSCRIPT THREE}-84x\N{SUPERSCRIPT TWO}+294x-343',
              '8x\N{SUPERSCRIPT THREE}+80x\N{SUPERSCRIPT TWO}+294x-333',
@@ -290,9 +307,10 @@ class Questions:
         # setting up question box
         background_color = "#9FE7F5"
 
+        # calling name class 
         Name()
 
-        #setting up question window size 
+        #setting up question window size
         self.question_box = Toplevel()
         self.question_box.geometry("640x360")
         self.question_box.state('zoomed')
@@ -352,17 +370,18 @@ class Questions:
                                 command=lambda: display_Next_Question())
 
         self.question_frame.pack(fill="both", expand="true")
-        # using place method to position question label 
+        # using place method to position question label
         question_label.place(relx=0.5, rely=0.25, anchor=CENTER)
 
-        # grid method to position options 
+        # grid method to position options 1, 2 and 3
         option1.place(anchor=W, relx=0.1, rely=0.5)
         option2.place(anchor=W, relx=0.1, rely=0.6)
         option3.place(anchor=W, relx=0.1, rely=0.7)
-        # using place method to position the next button 
+        # using place method to position the next button
         button_next.place(relx=0.5, rely=0.9, anchor=CENTER)
 
-        index = 0
+        
+        question_number = 0
         correct_ans = 0
 
         # function to disable radiobuttons
@@ -373,30 +392,30 @@ class Questions:
 
         # function to check the selected answer
         def Check_Answer(radio):
-            nonlocal correct_ans, index
+            nonlocal correct_ans, question_number
             # second option is correct
-            if radio["text"] == options[index][3]:
+            if radio["text"] == options[question_number][3]:
                 correct_ans += 1
 
-            index += 1
+            question_number += 1
             disable_buttons("disable")
 
         # function to display next questions
         def display_Next_Question():
-            nonlocal index, correct_ans
+            nonlocal question_number, correct_ans
             global name
 
             # if statement to check for "Home" text in button_next
             if button_next["text"] == "Home":
                 correct_ans = 0
-                index = 0
+                question_number = 0
                 score = 0
                 name = ""
                 root.deiconify()  # Reopen the main Tkinter window
                 self.question_box.destroy()
 
             # outputs the final score our of ten 
-            if index == len(options):
+            if question_number == len(options):
                 question_label["text"] = str(correct_ans) + " / " + '10'
 
                 score = "{}".format(str(correct_ans))
@@ -415,11 +434,11 @@ class Questions:
                 else:
                     question_label["bg"] = "red"
             else:
-                question_label["text"] = questions[index]
+                question_label["text"] = questions[question_number]
 
             # changes radiobuttons into a clickable state
             disable_buttons("normal")
-            opts = options[index]
+            opts = options[question_number]
             option1["text"] = opts[0]
             option2["text"] = opts[1]
             option3["text"] = opts[2]
@@ -427,7 +446,7 @@ class Questions:
             v2.set(opts[1])
             v3.set(opts[2])
 
-            if index == len(options) - 1:
+            if question_number == len(options) - 1:
                 button_next["text"] = "Check your results"
 
         display_Next_Question()
