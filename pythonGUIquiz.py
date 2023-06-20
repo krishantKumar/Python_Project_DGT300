@@ -411,7 +411,8 @@ class Questions:
                 question_number = 0
                 score = 0
                 name = ""
-                root.deiconify()  # Reopen the main Tkinter window
+                root.deiconify()
+                root.state('zoomed') # Reopen the main Tkinter window
                 self.question_box.destroy()
 
             # outputs the final score our of ten 
