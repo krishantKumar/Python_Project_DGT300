@@ -146,7 +146,7 @@ class Leaderboard:
             )
         for name, score in sorted_leaderboard_dict:
             self.leaderboard_text.insert(
-                END, "Name: {}   Score: {}\n".format(name, score)
+                END, "Name: {}   Score: {:.0f}\n".format(name, score)
                 )
         self.leaderboard_text.config(state=DISABLED)
 
