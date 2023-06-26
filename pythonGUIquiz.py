@@ -3,11 +3,14 @@
 
 from tkinter import *
 from tkinter import messagebox
+from tkinter.messagebox import showinfo
 
 ##########   CLASS CODE   ##########
 class Home:
     """The home class includes the main window with a leaderboard, help and
      begin quiz button"""
+    
+    # definition that initialises the colour and brand attributes
     def __init__(self, parent):
         # setting background colour
         background_color = "#9FE7F5"
@@ -75,13 +78,13 @@ class Home:
 
     def open_leaderboard(self):
         Leaderboard()
-
+    
     global leaderboard_dict
     leaderboard_dict = {}
     # # reading scores file
     try:
         with open(
-            r"C:\Users\krish\Desktop\Python Project DGT300\quiz_file.txt", 'r'
+            r"G:\My Drive\DGT300 Python Project Code & Files\quiz_file.txt", 'r'
             ) as read_score_file:
             scores = read_score_file.readlines()
             for line in scores:
@@ -99,6 +102,8 @@ class Leaderboard:
     """The leaderboard class includes the code for the leaderboard window
     and the code that inserts the txt file contents in order from highest
     to lowest"""
+
+    # definition that initialises the colour and brand attributes
     def __init__(self):
         background_color = "#9FE7F5"
         self.leaderboard_box = Toplevel()
@@ -159,6 +164,8 @@ class Leaderboard:
 class Help:
     """The help class contains the help window code, text of instructions 
     and a help heading label"""
+    
+    # definition that initialises the colour and brand attributes
     def __init__(self):
         background_color = "#9FE7F5"
 
@@ -206,6 +213,8 @@ class Name:
     """The name class contains the code that gives an error message when the 
     entry field is left empty and when the entry field contains a name that 
     already exists in the txt file"""
+
+    # definition that initialises the colour and brand attributes
     def __init__(self):
         # setting background colour
         background_color = "#9FE7F5"
@@ -266,6 +275,8 @@ class Questions:
     """The questions class includes the options list and questions list. The 
     questions class displays the questions and displays the score. The score is
     then stored into a txt file."""
+
+    # definition that initialises the colour and brand attributes
     def __init__(self):
         
         # quiz question list
@@ -396,8 +407,12 @@ class Questions:
             # second option is correct
             if radio["text"] == options[question_number][3]:
                 correct_ans += 1
-
-            question_number += 1
+                result = ("Correct!\n Press OK to continue!")
+                question_number += 1
+            else:
+                result = ("Wrong!\n Press OK to continue!")
+                question_number += 1
+            showinfo("Result", result)
             disable_buttons("disable")
 
         # function to display next questions
@@ -424,7 +439,7 @@ class Questions:
                 button_next["text"] = "Home"
                 try:
                     with open(
-                        "quiz_file.txt",
+                        "G:\My Drive\DGT300 Python Project Code & Files\quiz_file.txt",
                           'a') as file:
                         file.write("\n{},{}".format(name,score))
                 except FileNotFoundError:
