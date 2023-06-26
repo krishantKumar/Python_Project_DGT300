@@ -171,7 +171,7 @@ class Help:
 
         # setting up help window size
         self.help_box = Toplevel()
-        self.help_box.geometry("640x360")
+        self.help_box.geometry("640x360+20+20")
         # setting up the help window background colour
         self.help_box.configure(bg=background_color)
 
