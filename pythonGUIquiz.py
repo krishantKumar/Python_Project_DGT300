@@ -171,7 +171,7 @@ class Help:
 
         # setting up help window size
         self.help_box = Toplevel()
-        self.help_box.geometry("640x360+20+20")
+        self.help_box.geometry("640x360+60+60")
         # setting up the help window background colour
         self.help_box.configure(bg=background_color)
 
@@ -476,6 +476,6 @@ background_color = "#9FE7F5"
 root.geometry("640x360")
 root.state('zoomed')
 root.configure(bg=background_color)
-root.title("Maths Quiz")
+root.title("Maths Quiz - © Krishant Kumar")
 quiz = Home(root)
 root.mainloop()
