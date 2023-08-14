@@ -1,4 +1,3 @@
-
 ##########   IMPORTS   ##########
 
 from tkinter import *
@@ -75,13 +74,10 @@ class Home:
                                      " program.", justify=CENTER,
                                      font=("Arial", 10, "bold"),
                                      fg="#053F5C")
-
-    def open_leaderboard(self):
-        Leaderboard()
     
     global leaderboard_dict
     leaderboard_dict = {}
-    # # reading scores file
+    # reading scores file
     try:
         with open(
             r"G:\My Drive\DGT300 Python Project Code & Files\quiz_file.txt", 'r'
@@ -90,11 +86,17 @@ class Home:
             for line in scores:
                 key, value = line.strip().split(",")
                 leaderboard_dict[key] = float(value)
+            read_score_file.close()
 
     except FileNotFoundError:
         print("Saving score unsuccessful (Saving file not found).")
+        
+    def open_leaderboard(self):
+        re_read_file()
+        Leaderboard()
                 
     def open_questions(self):
+
         # Opening the questions
         Questions()
 
@@ -171,7 +173,9 @@ class Help:
 
         # setting up help window size
         self.help_box = Toplevel()
+
         self.help_box.geometry("640x360+60+60")
+
         # setting up the help window background colour
         self.help_box.configure(bg=background_color)
 
@@ -219,7 +223,6 @@ class Name:
         # setting background colour
         background_color = "#9FE7F5"
         
-
         def submit():
             global name
             name = self.name_entry.get()
@@ -238,8 +241,6 @@ class Name:
                     self.name_box.destroy()
                     break
 
-
-        
         # setting up 2nd window for name entry
         self.name_box= Toplevel()
         
@@ -390,7 +391,6 @@ class Questions:
         option3.place(anchor=W, relx=0.1, rely=0.7)
         # using place method to position the next button
         button_next.place(relx=0.5, rely=0.9, anchor=CENTER)
-
         
         question_number = 0
         correct_ans = 0
@@ -439,9 +439,11 @@ class Questions:
                 button_next["text"] = "Home"
                 try:
                     with open(
-                        "G:\My Drive\DGT300 Python Project Code & Files\quiz_file.txt",
+                       r"G:\My Drive\DGT300 Python Project Code & Files\quiz_file.txt",
                           'a') as file:
                         file.write("\n{},{}".format(name,score))
+                        file.close()
+
                 except FileNotFoundError:
                     print("Saving score unsuccessful (Saving file not found).")
 
@@ -467,12 +469,23 @@ class Questions:
 
         display_Next_Question()
 
+def re_read_file():
+        try:
+            with open(
+                r"G:\My Drive\DGT300 Python Project Code & Files\quiz_file.txt"
+                ,'r') as read_score_file:
+                scores = read_score_file.readlines()
+                for line in scores:
+                    key, value = line.strip().split(",")
+                    leaderboard_dict[key] = float(value)
+                read_score_file.close()
+        except FileNotFoundError:
+            print("Saving score unsuccessful (Saving file not found).")
 
 # Creating main window
 root = Tk()
 # Main routine
 background_color = "#9FE7F5"
-
 root.geometry("640x360")
 root.state('zoomed')
 root.configure(bg=background_color)
